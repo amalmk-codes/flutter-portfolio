@@ -1,25 +1,21 @@
 // models/portfolio_data.dart
-//
-// This file holds ALL the data shown on the portfolio website.
-// Students: change the values here to personalise the portfolio —
-// no need to touch the layout files at all.
-
-// ─── Project Model ────────────────────────────────────────────────────────────
 class Project {
   final String title;
   final String description;
   final List<String> technologies;
   final String imageLabel;
+  final String githubUrl;
 
   const Project({
     required this.title,
     required this.description,
     required this.technologies,
     required this.imageLabel,
+    required this.githubUrl,
   });
 }
 
-// ─── Experience Model ─────────────────────────────────────────────────────────
+
 class Experience {
   final String company;
   final String position;
@@ -34,121 +30,168 @@ class Experience {
   });
 }
 
-// ─── Skill Model ──────────────────────────────────────────────────────────────
 class Skill {
   final String name;
   final String category;
 
-  const Skill({required this.name, required this.category});
+  const Skill({
+    required this.name,
+    required this.category,
+  });
 }
-
-// ─── Sample Portfolio Data ────────────────────────────────────────────────────
-// Replace every value below with your own information.
 
 class PortfolioData {
   // Personal Info
-  static const String name  = 'Alex Johnson';
-  static const String title = 'Flutter Developer & UI Designer';
+  static const String name = 'Amal M K';
+
+  static const String title =
+      'B.Tech CSE Student | Flutter Developer | MERN Stack Learner';
+
   static const String intro =
-      'I build beautiful, cross-platform apps using Flutter. '
-      'Passionate about clean code, great UX, and open source.';
+      'Passionate Computer Science student building mobile and web applications using Flutter, MERN Stack, and modern technologies.';
+
   static const String aboutMe =
-      "Hi! I'm Alex, a software developer with 3 years of experience building "
-      'mobile and web applications. I love solving real problems through elegant '
-      'code and intuitive design. When I\'m not coding, you\'ll find me hiking '
-      'or experimenting with new frameworks.';
+      "Hi! I'm Amal M K, a B.Tech Computer Science and Engineering student at Vidya Academy of Science and Technology, Thrissur. "
+      "I am passionate about software development, Flutter, web development, cybersecurity, and open-source technologies. "
+      "I enjoy building real-world projects, completing internships, and continuously improving my technical skills. "
+      "My goal is to become a Full Stack Developer and create impactful software solutions.";
 
   // Education
-  static const String degree         = 'B.Sc. Computer Science';
-  static const String university     = 'State University of Technology';
-  static const String graduationYear = '2021';
+  static const String degree =
+      'B.Tech Computer Science and Engineering';
+
+  static const String university =
+      'Vidya Academy of Science and Technology (KTU)';
+
+  static const String graduationYear = '2028';
 
   // Contact
-  static const String email    = 'dev.aneess@gmail.com';
-  static const String phone    = '+91 xxxxxxxxxx';
-  static const String linkedin = 'linkedin.com/in/aneesan';
-  static const String github   = 'github.com/erTesla';
+  static const String email =
+      'amalmkcoder@gmail.com';
+
+  static const String phone =
+      '+91 XXXXXXXXXX';
+
+  static const String linkedin =
+      'https://www.linkedin.com/in/amal-m-k-667b6b386/';
+
+  static const String github =
+      'https://github.com/amalmk-codes';
 
   // Skills
   static const List<Skill> skills = [
-    Skill(name: 'Flutter',      category: 'Mobile'),
-    Skill(name: 'Dart',         category: 'Mobile'),
-    Skill(name: 'Firebase',     category: 'Backend'),
-    Skill(name: 'REST APIs',    category: 'Backend'),
-    Skill(name: 'React',        category: 'Web'),
-    Skill(name: 'HTML & CSS',   category: 'Web'),
+    Skill(name: 'Flutter', category: 'Mobile'),
+    Skill(name: 'Dart', category: 'Mobile'),
+    Skill(name: 'React', category: 'Web'),
+    Skill(name: 'Node.js', category: 'Backend'),
+    Skill(name: 'MongoDB', category: 'Database'),
+    Skill(name: 'Firebase', category: 'Backend'),
+    Skill(name: 'HTML', category: 'Web'),
+    Skill(name: 'CSS', category: 'Web'),
+    Skill(name: 'JavaScript', category: 'Web'),
+    Skill(name: 'Python', category: 'Programming'),
+    Skill(name: 'Java', category: 'Programming'),
+    Skill(name: 'C', category: 'Programming'),
     Skill(name: 'Git & GitHub', category: 'Tools'),
-    Skill(name: 'Figma',        category: 'Design'),
+    Skill(name: 'Cybersecurity', category: 'Security'),
   ];
 
   // Projects
   static const List<Project> projects = [
-    Project(
-      title: 'TaskFlow',
-      description: 'A productivity app with task boards, reminders, and team '
-          'collaboration built with Flutter and Firebase.',
-      technologies: ['Flutter', 'Firebase', 'Hive'],
-      imageLabel: 'TaskFlow',
-    ),
-    Project(
-      title: 'WeatherNow',
-      description: 'A real-time weather app that fetches data from OpenWeather '
-          'API and displays animated forecasts.',
-      technologies: ['Flutter', 'REST API', 'Provider'],
-      imageLabel: 'WeatherNow',
-    ),
-    Project(
-      title: 'ShopLite',
-      description: 'A lightweight e-commerce app with product listings, cart, '
-          'and a mock checkout flow.',
-      technologies: ['Flutter', 'Dart', 'SQLite'],
-      imageLabel: 'ShopLite',
-    ),
-    Project(
-      title: 'Portfolio Website',
-      description: 'This very portfolio! Built with Flutter Web as a '
-          'single-page application with smooth scrolling.',
-      technologies: ['Flutter Web', 'Dart'],
-      imageLabel: 'Portfolio',
-    ),
-    Project(
-      title: 'FitTrack',
-      description: 'A fitness tracker that logs workouts, visualises progress '
-          'with charts, and sends daily reminders.',
-      technologies: ['Flutter', 'Firebase', 'fl_chart'],
-      imageLabel: 'FitTrack',
-    ),
-    Project(
-      title: 'NewsReader',
-      description: 'An RSS and news aggregator with category filters, '
-          'bookmarks, and offline reading support.',
-      technologies: ['Flutter', 'REST API', 'Bloc'],
-      imageLabel: 'NewsReader',
-    ),
-  ];
+  Project(
+    title: 'Phishing Email Detector',
+    description:
+        'Cybersecurity project that analyzes emails and identifies phishing attacks.',
+    technologies: ['Python', 'Cybersecurity'],
+    imageLabel: 'Phishing Detector',
+    githubUrl:
+        'https://github.com/amalmk-codes/phishing_email_detector',
+  ),
+
+  Project(
+    title: 'Secure Login System',
+    description:
+        'Authentication system implementing secure login and user verification.',
+    technologies: ['Python', 'Security'],
+    imageLabel: 'Secure Login',
+    githubUrl:
+        'https://github.com/amalmk-codes/Secure_login_system',
+  ),
+
+  Project(
+    title: 'Vulnerability Scanner',
+    description:
+        'Tool for identifying common vulnerabilities in websites and systems.',
+    technologies: ['HTML', 'Cybersecurity'],
+    imageLabel: 'Scanner',
+    githubUrl:
+        'https://github.com/amalmk-codes/vulnerability-scanner',
+  ),
+
+  Project(
+    title: 'E-Commerce Store',
+    description:
+        'Online shopping platform developed during CodeAlpha internship.',
+    technologies: ['JavaScript', 'HTML', 'CSS'],
+    imageLabel: 'E-Commerce',
+    githubUrl:
+        'https://github.com/amalmk-codes/CodeAlpha_EcommerceStore',
+  ),
+
+  Project(
+    title: 'Smart Calculator',
+    description:
+        'Modern calculator with a clean user interface.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    imageLabel: 'Calculator',
+    githubUrl:
+        'https://github.com/amalmk-codes/smart-calculator',
+  ),
+
+  Project(
+    title: 'Environmental Education Website',
+    description:
+        'Interactive educational platform with quizzes and activities.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    imageLabel: 'Environment',
+    githubUrl:
+        'https://github.com/amalmk-codes/module2',
+  ),
+];
 
   // Experience
   static const List<Experience> experiences = [
     Experience(
-      company: 'TechCorp Solutions',
-      position: 'Junior Flutter Developer',
-      duration: 'Jun 2023 – Present',
-      description: 'Building and maintaining cross-platform mobile apps for '
-          'enterprise clients. Led the migration of a legacy Android app to Flutter.',
+      company: 'Cisco Networking Academy',
+      position: 'Cybersecurity Intern',
+      duration: '2026',
+      description:
+          'Completed hands-on cybersecurity and networking training programs, gaining practical knowledge of network security, cyber threats, and industry best practices.',
     ),
+
     Experience(
-      company: 'StartUp Hub',
-      position: 'Mobile Intern',
-      duration: 'Jan 2023 – May 2023',
-      description: 'Developed UI components for a React Native app and wrote '
-          'unit tests using Jest. Assisted in Firebase integration.',
+      company: 'PaceLab',
+      position: 'Software Development Intern',
+      duration: '2026',
+      description:
+          'Worked on project-based learning activities and software development tasks while improving programming and problem-solving skills.',
     ),
+
     Experience(
-      company: 'Freelance',
-      position: 'Flutter Developer',
-      duration: '2021 – 2022',
-      description: 'Delivered three client projects: a restaurant ordering app, '
-          'a church events app, and a personal finance tracker.',
+      company: 'CodeAlpha',
+      position: 'Web Development Intern',
+      duration: '2026',
+      description:
+          'Developed web applications and completed internship projects using HTML, CSS, JavaScript, and modern web development techniques.',
+    ),
+
+    Experience(
+      company: 'Thiranex',
+      position: 'Full Stack Development Intern',
+      duration: '2026',
+      description:
+          'Built full-stack web applications and gained practical experience in frontend development, backend integration, databases, and deployment workflows.',
     ),
   ];
 }
+

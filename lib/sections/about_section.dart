@@ -1,14 +1,3 @@
-// sections/about_section.dart
-//
-// The ABOUT section displays:
-//   • A short "About Me" paragraph
-//   • Education details
-//   • A skills grid
-//
-// LAYOUT:
-//   On desktop: About text | Education (side by side)
-//   On mobile: stacked vertically
-//   Skills: always a Wrap of Chip widgets below
 
 import 'package:flutter/material.dart';
 import '../models/portfolio_data.dart';
@@ -19,151 +8,250 @@ class AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDesktop = MediaQuery.of(context).size.width >= 800;
+    final bool isDesktop =
+        MediaQuery.of(context).size.width >= 800;
 
     return Container(
-      color: Colors.white,
+      width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 80 : 24,
-        vertical: 60,
+        vertical: 80,
+      ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFFFFFFF),
+            Color(0xFFF8FAFC),
+          ],
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Reusable section heading widget
-          const SectionTitle(text: 'About Me'),
+          const Center(
+            child: SectionTitle(
+              text: 'About Me',
+            ),
+          ),
 
-          // ── About + Education row/column ────────────────────────────────
+          const SizedBox(height: 60),
+
           isDesktop
               ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildAboutText()),
-                    const SizedBox(width: 60),
-                    Expanded(child: _buildEducation()),
+                    Expanded(
+                      flex: 3,
+                      child: _buildAboutCard(),
+                    ),
+                    const SizedBox(width: 40),
+                    Expanded(
+                      flex: 2,
+                      child: _buildEducationCard(),
+                    ),
                   ],
                 )
               : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildAboutText(),
-                    const SizedBox(height: 32),
-                    _buildEducation(),
+                    _buildAboutCard(),
+                    const SizedBox(height: 24),
+                    _buildEducationCard(),
                   ],
                 ),
 
-          const SizedBox(height: 48),
+          const SizedBox(height: 60),
 
-          // ── Skills ───────────────────────────────────────────────────────
           const Text(
-            'Skills',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            'Technical Skills',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 16),
-          _buildSkills(),
+
+          const SizedBox(height: 20),
+
+          _buildSkillsGrid(),
         ],
       ),
     );
   }
 
-  // ── About Me paragraph ─────────────────────────────────────────────────────
-  Widget _buildAboutText() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Who I Am',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          PortfolioData.aboutMe,
-          style: const TextStyle(
-            fontSize: 15,
-            color: Colors.black54,
-            height: 1.7,
+  Widget _buildAboutCard() {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
-        ),
-      ],
-    );
-  }
-
-  // ── Education block ────────────────────────────────────────────────────────
-  Widget _buildEducation() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Education',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 12),
-
-        // A simple Card to visually group the education info.
-        Card(
-          elevation: 1,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Degree name
-                Text(
-                  PortfolioData.degree,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 6),
-
-                // University name
-                Text(
-                  PortfolioData.university,
-                  style: TextStyle(color: Colors.blueGrey.shade700),
-                ),
-                const SizedBox(height: 4),
-
-                // Graduation year
-                Text(
-                  'Graduated: ${PortfolioData.graduationYear}',
-                  style: const TextStyle(color: Colors.black45),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // ── Skills Wrap ────────────────────────────────────────────────────────────
-  // Groups each skill with a category label using a FilterChip-style appearance.
-  Widget _buildSkills() {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: PortfolioData.skills.map((skill) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey.shade300),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min, // Shrink to fit content
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          const Row(
             children: [
-              // Category dot indicator
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: Colors.blueGrey,
-                  shape: BoxShape.circle,
+              Icon(
+                Icons.person_outline,
+                size: 28,
+                color: Color(0xFF2563EB),
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Who I Am',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          Text(
+            PortfolioData.aboutMe,
+            style: const TextStyle(
+              fontSize: 16,
+              height: 1.9,
+              color: Colors.black87,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEducationCard() {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFF2563EB),
+            Color(0xFF7C3AED),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(
+                Icons.school,
+                color: Colors.white,
+                size: 28,
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Education',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 25),
+
+          Text(
+            PortfolioData.degree,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Text(
+            PortfolioData.university,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 15,
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          Row(
+            children: [
+              const Icon(
+                Icons.calendar_month,
+                color: Colors.white70,
+                size: 18,
+              ),
               const SizedBox(width: 8),
-              Text(skill.name, style: const TextStyle(fontSize: 14)),
+              Text(
+                'Graduation: ${PortfolioData.graduationYear}',
+                style: const TextStyle(
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkillsGrid() {
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children:
+          PortfolioData.skills.map((skill) {
+        return Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 12,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius:
+                BorderRadius.circular(30),
+            border: Border.all(
+              color: const Color(0xFF2563EB)
+                  .withOpacity(0.2),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color:
+                    Colors.black.withOpacity(0.03),
+                blurRadius: 10,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.code,
+                size: 16,
+                color: Color(0xFF2563EB),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                skill.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         );

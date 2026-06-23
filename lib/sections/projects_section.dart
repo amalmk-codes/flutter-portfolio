@@ -1,14 +1,3 @@
-// sections/projects_section.dart
-//
-// The PROJECTS section displays a responsive grid of project cards.
-//
-// RESPONSIVE GRID:
-//   Desktop (>=1000px): 3 columns
-//   Tablet  (>=600px) : 2 columns
-//   Mobile            : 1 column
-//
-// Flutter's LayoutBuilder widget lets us read the available width
-// and choose the column count at runtime.
 
 import 'package:flutter/material.dart';
 import '../models/portfolio_data.dart';
@@ -20,79 +9,81 @@ class ProjectsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDesktop = MediaQuery.of(context).size.width >= 800;
+    final double width =
+        MediaQuery.of(context).size.width;
+
+    final bool isDesktop = width >= 1000;
+    final bool isTablet =
+        width >= 600 && width < 1000;
+
+    double cardWidth;
+
+    if (isDesktop) {
+      cardWidth = (width - 220) / 3;
+    } else if (isTablet) {
+      cardWidth = (width - 140) / 2;
+    } else {
+      cardWidth = width - 48;
+    }
 
     return Container(
-      // Slightly off-white background to visually separate from other sections
-      color: Colors.grey.shade50,
+      width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 80 : 24,
-        vertical: 60,
+        vertical: 80,
+      ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFF8FAFC),
+            Color(0xFFFFFFFF),
+          ],
+        ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
-          const SectionTitle(text: 'Projects'),
+          const Center(
+            child: SectionTitle(
+              text: 'Projects',
+            ),
+          ),
 
-          // ── Responsive Grid ──────────────────────────────────────────────
-          // LayoutBuilder provides the BoxConstraints of its parent,
-          // meaning we know the exact available width at build time.
-          LayoutBuilder(
-            builder: (context, constraints) {
-              // Decide column count based on available width
-              int columnCount;
-              if (constraints.maxWidth >= 1000) {
-                columnCount = 3; // Wide desktop
-              } else if (constraints.maxWidth >= 600) {
-                columnCount = 2; // Tablet / narrow desktop
-              } else {
-                columnCount = 1; // Mobile
-              }
+          const SizedBox(height: 16),
 
-              // Build a manual grid using nested Rows inside a Column.
-              // Alternative: GridView.count — students can try that too!
-              return _buildGrid(columnCount);
-            },
+          const Center(
+            child: Text(
+              'Some of my recent projects and development work',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 50),
+
+          Center(
+            child: Wrap(
+              spacing: 24,
+              runSpacing: 24,
+              children:
+                  PortfolioData.projects.map((project) {
+                return SizedBox(
+                  width: cardWidth,
+                  child: ProjectCard(
+                    project: project,
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ],
       ),
     );
-  }
-
-  // Splits the project list into rows of [columnCount] cards each.
-  Widget _buildGrid(int columnCount) {
-    final List<Project> projects = PortfolioData.projects;
-
-    // Create rows: slice the projects list into chunks of columnCount.
-    List<Widget> rows = [];
-    for (int i = 0; i < projects.length; i += columnCount) {
-      // Get the slice for this row (may be smaller on the last row)
-      final rowProjects = projects.sublist(
-        i,
-        (i + columnCount > projects.length) ? projects.length : i + columnCount,
-      );
-
-      rows.add(
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: rowProjects.map((project) {
-              return Expanded(
-                child: Padding(
-                  // Add gap between cards in the same row
-                  padding: EdgeInsets.only(
-                    right: project != rowProjects.last ? 20 : 0,
-                  ),
-                  child: ProjectCard(project: project),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      );
-    }
-
-    return Column(children: rows);
   }
 }

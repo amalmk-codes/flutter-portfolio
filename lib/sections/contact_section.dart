@@ -1,17 +1,3 @@
-// sections/contact_section.dart
-//
-// The CONTACT section displays social/contact links.
-//
-// Each link is shown as a row with:
-//   [Icon]  [Label]  [Value]
-//
-// We use dart:html (available on Flutter Web with no extra packages)
-// to open URLs. On non-web targets this is conditionally ignored.
-//
-// NOTE FOR STUDENTS:
-// dart:html only works on Flutter Web. If you later add mobile support,
-// replace the _launchUrl helper with the url_launcher package.
-
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
@@ -24,63 +10,177 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDesktop = MediaQuery.of(context).size.width >= 800;
+    final bool isDesktop =
+        MediaQuery.of(context).size.width >= 800;
 
     return Container(
-      color: Colors.blueGrey.shade50,
+      width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 80 : 24,
-        vertical: 60,
+        vertical: 80,
+      ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFF8FAFC),
+            Color(0xFFEFF6FF),
+          ],
+        ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle(text: 'Contact'),
+          const SectionTitle(text: 'Contact Me'),
+
+          const SizedBox(height: 20),
 
           const Text(
-            "Let's work together! Reach out via any of the channels below.",
+            "I'm always open to discussing internships, projects, freelance work, collaborations, and new opportunities.",
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               color: Colors.black54,
-              height: 1.6,
+              height: 1.7,
             ),
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: 50),
 
-          // ── Contact Items ──────────────────────────────────────────────────
-          _buildContactItem(
-            icon: Icons.email_outlined,
-            label: 'Email',
-            value: PortfolioData.email,
-            url: 'mailto:${PortfolioData.email}',
-          ),
-          _buildContactItem(
-            icon: Icons.phone_outlined,
-            label: 'Phone',
-            value: PortfolioData.phone,
-            url: 'tel:${PortfolioData.phone}',
-          ),
-          _buildContactItem(
-            icon: Icons.link,
-            label: 'LinkedIn',
-            value: PortfolioData.linkedin,
-            url: 'https://${PortfolioData.linkedin}',
-          ),
-          _buildContactItem(
-            icon: Icons.code,
-            label: 'GitHub',
-            value: PortfolioData.github,
-            url: 'https://${PortfolioData.github}',
+          Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            alignment: WrapAlignment.center,
+            children: [
+              _contactCard(
+                icon: Icons.email_outlined,
+                title: 'Email',
+                value: PortfolioData.email,
+                onTap: () => _launchUrl(
+                  'mailto:${PortfolioData.email}',
+                ),
+              ),
+
+              _contactCard(
+                icon: Icons.work_outline,
+                title: 'LinkedIn',
+                value: 'Connect with me',
+                onTap: () => _launchUrl(
+                  PortfolioData.linkedin,
+                ),
+              ),
+
+              _contactCard(
+                icon: Icons.code,
+                title: 'GitHub',
+                value: 'View my repositories',
+                onTap: () => _launchUrl(
+                  PortfolioData.github,
+                ),
+              ),
+            ],
           ),
 
-          const SizedBox(height: 48),
+          const SizedBox(height: 60),
 
-          // ── Footer ─────────────────────────────────────────────────────────
-          const Center(
-            child: Text(
-              'Built with Flutter Web ❤️',
-              style: TextStyle(color: Colors.black38, fontSize: 13),
+          Container(
+            width: double.infinity,
+            constraints:
+                const BoxConstraints(maxWidth: 900),
+            padding: const EdgeInsets.all(35),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFF2563EB),
+                  Color(0xFF7C3AED),
+                ],
+              ),
+              borderRadius:
+                  BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  "Let's Build Something Amazing Together 🚀",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                const Text(
+                  "Feel free to reach out for internships, collaborations, development projects, or technology discussions.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white70,
+                    height: 1.7,
+                    fontSize: 15,
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                ElevatedButton.icon(
+                  onPressed: () => _launchUrl(
+                    'mailto:${PortfolioData.email}'
+                    '?subject=Portfolio Contact'
+                    '&body=Hello Amal,%0D%0A%0D%0AI would like to connect with you.',
+                  ),
+                  icon:
+                      const Icon(Icons.send_rounded),
+                  label: const Text(
+                    'Send Email',
+                    style: TextStyle(
+                      fontWeight:
+                          FontWeight.bold,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Colors.white,
+                    foregroundColor:
+                        const Color(0xFF2563EB),
+                    elevation: 5,
+                    padding:
+                        const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 18,
+                    ),
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                              14),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 60),
+
+          const Divider(),
+
+          const SizedBox(height: 20),
+
+          Text(
+            '© ${DateTime.now().year} Amal M K • Built with Flutter Web',
+            style: const TextStyle(
+              color: Colors.black45,
+              fontSize: 14,
             ),
           ),
         ],
@@ -88,60 +188,71 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  // ── Contact Row Builder ────────────────────────────────────────────────────
-  Widget _buildContactItem({
+  Widget _contactCard({
     required IconData icon,
-    required String label,
+    required String title,
     required String value,
-    required String url,
+    required VoidCallback onTap,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: InkWell(
-        // InkWell adds a ripple tap effect and calls onTap when pressed.
-        onTap: () => _launchUrl(url),
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              // Icon
-              Icon(icon, color: Colors.blueGrey.shade600, size: 22),
-              const SizedBox(width: 16),
-
-              // Label (fixed width so values line up)
-              SizedBox(
-                width: 80,
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
-                  ),
-                ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Container(
+        width: 260,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius:
+              BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Colors.black.withOpacity(0.05),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundColor:
+                  const Color(0xFF2563EB)
+                      .withOpacity(0.1),
+              child: Icon(
+                icon,
+                color:
+                    const Color(0xFF2563EB),
               ),
+            ),
 
-              // Tappable value
-              Expanded(
-                child: Text(
-                  value,
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade700,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
+            const SizedBox(height: 15),
+
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 8),
+
+            Text(
+              value,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black54,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // ── URL Launcher ───────────────────────────────────────────────────────────
-  // dart:html's window.open() opens a URL in a new browser tab.
-  // No external package required for Flutter Web.
-  void _launchUrl(String url) {
+  static void _launchUrl(String url) {
     html.window.open(url, '_blank');
   }
 }
